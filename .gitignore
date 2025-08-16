@@ -1,0 +1,31 @@
+# Go modules
+go.sum
+*.exe
+*.test
+*.out
+
+# Build folders
+/bin/
+/build/
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Generated protobuf files (jos haluat ne pois)
+# pb/*.pb.go
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/

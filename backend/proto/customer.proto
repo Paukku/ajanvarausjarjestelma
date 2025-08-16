@@ -1,0 +1,14 @@
+// ajanvaraajat
+syntax = "proto3";
+package customer;
+
+option go_package = "github.com/Paukku/ajanvarausjarjestelma/backend/pb";
+import "google/protobuf/timestamp.proto";
+
+message Customer {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone_number = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
