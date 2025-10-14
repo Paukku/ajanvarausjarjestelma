@@ -1,7 +1,7 @@
 syntax = "proto3";
 package business;
 
-option go_package = "github.com/Paukku/ajanvarausjarjestelma/backend/pb";
+option go_package = "/pb";
 import "google/protobuf/timestamp.proto";
 
 message User {
