@@ -1,0 +1,17 @@
+// ajanvaraajat
+syntax = "proto3";
+package common;
+
+option go_package = "/pb/common";
+import "google/protobuf/timestamp.proto";
+
+message Customer {
+  string uuid = 1;
+  string name = 2;
+  string email = 3;
+  string phone_number = 4;
+  
+  google.protobuf.Timestamp created_at = 100;
+  google.protobuf.Timestamp updated_at = 101;
+  google.protobuf.Timestamp deleted_at = 102;
+}

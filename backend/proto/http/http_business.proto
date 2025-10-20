@@ -1,0 +1,26 @@
+syntax = "proto3";
+package http_business;
+
+option go_package = "/businessServices;businessServices";
+
+import "google/api/annotations.proto";
+import "common/business.proto";
+
+service BusinessCustomerAPI {
+  rpc CreateUser(common.CreateUserRequest) returns(common.GeneralResponse){
+    option (google.api.http) = {
+      post: "/api/v1/users/createUser"
+      body: "*"
+    };
+  }
+  rpc GetUser(common.EmptyRequest) returns(common.UserList) {
+    option (google.api.http) = {
+      get: "/api/v1/users/getUser"
+    };
+  }
+  rpc GetUserById(common.GetUserRequest) returns (common.User) {
+    option (google.api.http) = {
+      get: "/api/v1/users/{uuid}"
+    };
+  }
+}

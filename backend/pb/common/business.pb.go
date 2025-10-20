@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        v6.31.1
-// source: proto/business.proto
+// source: proto/common/business.proto
 
-package pb
+package common
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -24,17 +24,19 @@ const (
 
 type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,100,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,101,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	DeletedAt     *timestamppb.Timestamp `protobuf:"bytes,102,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *User) Reset() {
 	*x = User{}
-	mi := &file_proto_business_proto_msgTypes[0]
+	mi := &file_proto_common_business_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -46,7 +48,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[0]
+	mi := &file_proto_common_business_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,14 +61,14 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{0}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *User) GetId() int32 {
+func (x *User) GetUuid() string {
 	if x != nil {
-		return x.Id
+		return x.Uuid
 	}
-	return 0
+	return ""
 }
 
 func (x *User) GetName() string {
@@ -90,9 +92,23 @@ func (x *User) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *User) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+func (x *User) GetDeletedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DeletedAt
+	}
+	return nil
+}
+
 type Business struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	Address       string                 `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
@@ -100,14 +116,16 @@ type Business struct {
 	Website       string                 `protobuf:"bytes,6,opt,name=website,proto3" json:"website,omitempty"`
 	Employees     []*BusinessUser        `protobuf:"bytes,7,rep,name=employees,proto3" json:"employees,omitempty"`
 	Some          []*SocialMedia         `protobuf:"bytes,8,rep,name=some,proto3" json:"some,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,100,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,101,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	DeletedAt     *timestamppb.Timestamp `protobuf:"bytes,102,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Business) Reset() {
 	*x = Business{}
-	mi := &file_proto_business_proto_msgTypes[1]
+	mi := &file_proto_common_business_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -119,7 +137,7 @@ func (x *Business) String() string {
 func (*Business) ProtoMessage() {}
 
 func (x *Business) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[1]
+	mi := &file_proto_common_business_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -132,14 +150,14 @@ func (x *Business) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Business.ProtoReflect.Descriptor instead.
 func (*Business) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{1}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Business) GetId() int32 {
+func (x *Business) GetUuid() string {
 	if x != nil {
-		return x.Id
+		return x.Uuid
 	}
-	return 0
+	return ""
 }
 
 func (x *Business) GetName() string {
@@ -198,10 +216,24 @@ func (x *Business) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *Business) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+func (x *Business) GetDeletedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DeletedAt
+	}
+	return nil
+}
+
 type BusinessUser struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	BusinessId    int32                  `protobuf:"varint,1,opt,name=business_id,json=businessId,proto3" json:"business_id,omitempty"`
-	UserId        int32                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	BusinessUuid  string                 `protobuf:"bytes,1,opt,name=business_uuid,json=businessUuid,proto3" json:"business_uuid,omitempty"`
+	UserUuid      string                 `protobuf:"bytes,2,opt,name=user_uuid,json=userUuid,proto3" json:"user_uuid,omitempty"`
 	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"` // owner, employee
 	Name          string                 `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
 	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
@@ -211,7 +243,7 @@ type BusinessUser struct {
 
 func (x *BusinessUser) Reset() {
 	*x = BusinessUser{}
-	mi := &file_proto_business_proto_msgTypes[2]
+	mi := &file_proto_common_business_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -223,7 +255,7 @@ func (x *BusinessUser) String() string {
 func (*BusinessUser) ProtoMessage() {}
 
 func (x *BusinessUser) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[2]
+	mi := &file_proto_common_business_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -236,21 +268,21 @@ func (x *BusinessUser) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BusinessUser.ProtoReflect.Descriptor instead.
 func (*BusinessUser) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{2}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *BusinessUser) GetBusinessId() int32 {
+func (x *BusinessUser) GetBusinessUuid() string {
 	if x != nil {
-		return x.BusinessId
+		return x.BusinessUuid
 	}
-	return 0
+	return ""
 }
 
-func (x *BusinessUser) GetUserId() int32 {
+func (x *BusinessUser) GetUserUuid() string {
 	if x != nil {
-		return x.UserId
+		return x.UserUuid
 	}
-	return 0
+	return ""
 }
 
 func (x *BusinessUser) GetRole() string {
@@ -274,6 +306,50 @@ func (x *BusinessUser) GetEmail() string {
 	return ""
 }
 
+type UserList struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Users         []*User                `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserList) Reset() {
+	*x = UserList{}
+	mi := &file_proto_common_business_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserList) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserList) ProtoMessage() {}
+
+func (x *UserList) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_common_business_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserList.ProtoReflect.Descriptor instead.
+func (*UserList) Descriptor() ([]byte, []int) {
+	return file_proto_common_business_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UserList) GetUsers() []*User {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
 type SocialMedia struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Platform      string                 `protobuf:"bytes,1,opt,name=platform,proto3" json:"platform,omitempty"`
@@ -284,7 +360,7 @@ type SocialMedia struct {
 
 func (x *SocialMedia) Reset() {
 	*x = SocialMedia{}
-	mi := &file_proto_business_proto_msgTypes[3]
+	mi := &file_proto_common_business_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -296,7 +372,7 @@ func (x *SocialMedia) String() string {
 func (*SocialMedia) ProtoMessage() {}
 
 func (x *SocialMedia) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[3]
+	mi := &file_proto_common_business_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -309,7 +385,7 @@ func (x *SocialMedia) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SocialMedia.ProtoReflect.Descriptor instead.
 func (*SocialMedia) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{3}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SocialMedia) GetPlatform() string {
@@ -338,7 +414,7 @@ type CreateUserRequest struct {
 
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
-	mi := &file_proto_business_proto_msgTypes[4]
+	mi := &file_proto_common_business_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +426,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[4]
+	mi := &file_proto_common_business_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -363,7 +439,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{4}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreateUserRequest) GetName() string {
@@ -394,50 +470,6 @@ func (x *CreateUserRequest) GetRole() string {
 	return ""
 }
 
-type CreateUserResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateUserResponse) Reset() {
-	*x = CreateUserResponse{}
-	mi := &file_proto_business_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateUserResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateUserResponse) ProtoMessage() {}
-
-func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
-func (*CreateUserResponse) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *CreateUserResponse) GetUser() *User {
-	if x != nil {
-		return x.User
-	}
-	return nil
-}
-
 type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -448,7 +480,7 @@ type LoginRequest struct {
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_proto_business_proto_msgTypes[6]
+	mi := &file_proto_common_business_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -460,7 +492,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[6]
+	mi := &file_proto_common_business_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -473,7 +505,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{6}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *LoginRequest) GetEmail() string {
@@ -500,7 +532,7 @@ type LoginResponse struct {
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
-	mi := &file_proto_business_proto_msgTypes[7]
+	mi := &file_proto_common_business_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -512,7 +544,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[7]
+	mi := &file_proto_common_business_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -525,7 +557,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{7}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *LoginResponse) GetToken() string {
@@ -545,14 +577,14 @@ func (x *LoginResponse) GetUser() *User {
 // Uudet viestit
 type GetUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetUserRequest) Reset() {
 	*x = GetUserRequest{}
-	mi := &file_proto_business_proto_msgTypes[8]
+	mi := &file_proto_common_business_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -564,7 +596,7 @@ func (x *GetUserRequest) String() string {
 func (*GetUserRequest) ProtoMessage() {}
 
 func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[8]
+	mi := &file_proto_common_business_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -577,19 +609,19 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
 func (*GetUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{8}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *GetUserRequest) GetId() int32 {
+func (x *GetUserRequest) GetUuid() string {
 	if x != nil {
-		return x.Id
+		return x.Uuid
 	}
-	return 0
+	return ""
 }
 
 type UpdateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -598,7 +630,7 @@ type UpdateUserRequest struct {
 
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
-	mi := &file_proto_business_proto_msgTypes[9]
+	mi := &file_proto_common_business_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -610,7 +642,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[9]
+	mi := &file_proto_common_business_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -623,14 +655,14 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{9}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *UpdateUserRequest) GetId() int32 {
+func (x *UpdateUserRequest) GetUuid() string {
 	if x != nil {
-		return x.Id
+		return x.Uuid
 	}
-	return 0
+	return ""
 }
 
 func (x *UpdateUserRequest) GetName() string {
@@ -649,14 +681,14 @@ func (x *UpdateUserRequest) GetEmail() string {
 
 type DeleteUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteUserRequest) Reset() {
 	*x = DeleteUserRequest{}
-	mi := &file_proto_business_proto_msgTypes[10]
+	mi := &file_proto_common_business_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -668,7 +700,7 @@ func (x *DeleteUserRequest) String() string {
 func (*DeleteUserRequest) ProtoMessage() {}
 
 func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[10]
+	mi := &file_proto_common_business_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -681,38 +713,39 @@ func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{10}
+	return file_proto_common_business_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *DeleteUserRequest) GetId() int32 {
+func (x *DeleteUserRequest) GetUuid() string {
 	if x != nil {
-		return x.Id
+		return x.Uuid
 	}
-	return 0
+	return ""
 }
 
-type DeleteUserResponse struct {
+type GeneralResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteUserResponse) Reset() {
-	*x = DeleteUserResponse{}
-	mi := &file_proto_business_proto_msgTypes[11]
+func (x *GeneralResponse) Reset() {
+	*x = GeneralResponse{}
+	mi := &file_proto_common_business_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteUserResponse) String() string {
+func (x *GeneralResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteUserResponse) ProtoMessage() {}
+func (*GeneralResponse) ProtoMessage() {}
 
-func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_business_proto_msgTypes[11]
+func (x *GeneralResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_common_business_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -723,31 +756,78 @@ func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteUserResponse.ProtoReflect.Descriptor instead.
-func (*DeleteUserResponse) Descriptor() ([]byte, []int) {
-	return file_proto_business_proto_rawDescGZIP(), []int{11}
+// Deprecated: Use GeneralResponse.ProtoReflect.Descriptor instead.
+func (*GeneralResponse) Descriptor() ([]byte, []int) {
+	return file_proto_common_business_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *DeleteUserResponse) GetSuccess() bool {
+func (x *GeneralResponse) GetSuccess() bool {
 	if x != nil {
 		return x.Success
 	}
 	return false
 }
 
-var File_proto_business_proto protoreflect.FileDescriptor
+func (x *GeneralResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
 
-const file_proto_business_proto_rawDesc = "" +
+type EmptyRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EmptyRequest) Reset() {
+	*x = EmptyRequest{}
+	mi := &file_proto_common_business_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EmptyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EmptyRequest) ProtoMessage() {}
+
+func (x *EmptyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_common_business_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EmptyRequest.ProtoReflect.Descriptor instead.
+func (*EmptyRequest) Descriptor() ([]byte, []int) {
+	return file_proto_common_business_proto_rawDescGZIP(), []int{12}
+}
+
+var File_proto_common_business_proto protoreflect.FileDescriptor
+
+const file_proto_common_business_proto_rawDesc = "" +
 	"\n" +
-	"\x14proto/business.proto\x12\bbusiness\x1a\x1fgoogle/protobuf/timestamp.proto\"{\n" +
-	"\x04User\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
+	"\x1bproto/common/business.proto\x12\bbusiness\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf5\x01\n" +
+	"\x04User\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x129\n" +
 	"\n" +
-	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\xc3\x02\n" +
-	"\bBusiness\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
+	"created_at\x18d \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18e \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x129\n" +
+	"\n" +
+	"deleted_at\x18f \x01(\v2\x1a.google.protobuf.TimestampR\tdeletedAt\"\xbd\x03\n" +
+	"\bBusiness\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x18\n" +
 	"\aaddress\x18\x04 \x01(\tR\aaddress\x12!\n" +
@@ -756,14 +836,19 @@ const file_proto_business_proto_rawDesc = "" +
 	"\temployees\x18\a \x03(\v2\x16.business.BusinessUserR\temployees\x12)\n" +
 	"\x04some\x18\b \x03(\v2\x15.business.SocialMediaR\x04some\x129\n" +
 	"\n" +
-	"created_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x86\x01\n" +
-	"\fBusinessUser\x12\x1f\n" +
-	"\vbusiness_id\x18\x01 \x01(\x05R\n" +
-	"businessId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\x05R\x06userId\x12\x12\n" +
+	"created_at\x18d \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18e \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x129\n" +
+	"\n" +
+	"deleted_at\x18f \x01(\v2\x1a.google.protobuf.TimestampR\tdeletedAt\"\x8e\x01\n" +
+	"\fBusinessUser\x12#\n" +
+	"\rbusiness_uuid\x18\x01 \x01(\tR\fbusinessUuid\x12\x1b\n" +
+	"\tuser_uuid\x18\x02 \x01(\tR\buserUuid\x12\x12\n" +
 	"\x04role\x18\x03 \x01(\tR\x04role\x12\x12\n" +
 	"\x04name\x18\x04 \x01(\tR\x04name\x12\x14\n" +
-	"\x05email\x18\x05 \x01(\tR\x05email\";\n" +
+	"\x05email\x18\x05 \x01(\tR\x05email\"0\n" +
+	"\bUserList\x12$\n" +
+	"\x05users\x18\x01 \x03(\v2\x0e.business.UserR\x05users\";\n" +
 	"\vSocialMedia\x12\x1a\n" +
 	"\bplatform\x18\x01 \x01(\tR\bplatform\x12\x10\n" +
 	"\x03url\x18\x02 \x01(\tR\x03url\"m\n" +
@@ -771,107 +856,94 @@ const file_proto_business_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x12\n" +
-	"\x04role\x18\x04 \x01(\tR\x04role\"8\n" +
-	"\x12CreateUserResponse\x12\"\n" +
-	"\x04user\x18\x01 \x01(\v2\x0e.business.UserR\x04user\"@\n" +
+	"\x04role\x18\x04 \x01(\tR\x04role\"@\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"I\n" +
 	"\rLoginResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\"\n" +
-	"\x04user\x18\x02 \x01(\v2\x0e.business.UserR\x04user\" \n" +
-	"\x0eGetUserRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\"M\n" +
-	"\x11UpdateUserRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
+	"\x04user\x18\x02 \x01(\v2\x0e.business.UserR\x04user\"$\n" +
+	"\x0eGetUserRequest\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\"Q\n" +
+	"\x11UpdateUserRequest\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05email\x18\x03 \x01(\tR\x05email\"#\n" +
-	"\x11DeleteUserRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\".\n" +
-	"\x12DeleteUserResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xc9\x02\n" +
-	"\vUserService\x12G\n" +
-	"\n" +
-	"CreateUser\x12\x1b.business.CreateUserRequest\x1a\x1c.business.CreateUserResponse\x128\n" +
-	"\x05Login\x12\x16.business.LoginRequest\x1a\x17.business.LoginResponse\x123\n" +
-	"\aGetUser\x12\x18.business.GetUserRequest\x1a\x0e.business.User\x129\n" +
-	"\n" +
-	"UpdateUser\x12\x1b.business.UpdateUserRequest\x1a\x0e.business.User\x12G\n" +
-	"\n" +
-	"DeleteUser\x12\x1b.business.DeleteUserRequest\x1a\x1c.business.DeleteUserResponseB\x05Z\x03/pbb\x06proto3"
+	"\x05email\x18\x03 \x01(\tR\x05email\"'\n" +
+	"\x11DeleteUserRequest\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\"E\n" +
+	"\x0fGeneralResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"\x0e\n" +
+	"\fEmptyRequestB\fZ\n" +
+	"/pb/commonb\x06proto3"
 
 var (
-	file_proto_business_proto_rawDescOnce sync.Once
-	file_proto_business_proto_rawDescData []byte
+	file_proto_common_business_proto_rawDescOnce sync.Once
+	file_proto_common_business_proto_rawDescData []byte
 )
 
-func file_proto_business_proto_rawDescGZIP() []byte {
-	file_proto_business_proto_rawDescOnce.Do(func() {
-		file_proto_business_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_business_proto_rawDesc), len(file_proto_business_proto_rawDesc)))
+func file_proto_common_business_proto_rawDescGZIP() []byte {
+	file_proto_common_business_proto_rawDescOnce.Do(func() {
+		file_proto_common_business_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_common_business_proto_rawDesc), len(file_proto_common_business_proto_rawDesc)))
 	})
-	return file_proto_business_proto_rawDescData
+	return file_proto_common_business_proto_rawDescData
 }
 
-var file_proto_business_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_proto_business_proto_goTypes = []any{
+var file_proto_common_business_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_proto_common_business_proto_goTypes = []any{
 	(*User)(nil),                  // 0: business.User
 	(*Business)(nil),              // 1: business.Business
 	(*BusinessUser)(nil),          // 2: business.BusinessUser
-	(*SocialMedia)(nil),           // 3: business.SocialMedia
-	(*CreateUserRequest)(nil),     // 4: business.CreateUserRequest
-	(*CreateUserResponse)(nil),    // 5: business.CreateUserResponse
+	(*UserList)(nil),              // 3: business.UserList
+	(*SocialMedia)(nil),           // 4: business.SocialMedia
+	(*CreateUserRequest)(nil),     // 5: business.CreateUserRequest
 	(*LoginRequest)(nil),          // 6: business.LoginRequest
 	(*LoginResponse)(nil),         // 7: business.LoginResponse
 	(*GetUserRequest)(nil),        // 8: business.GetUserRequest
 	(*UpdateUserRequest)(nil),     // 9: business.UpdateUserRequest
 	(*DeleteUserRequest)(nil),     // 10: business.DeleteUserRequest
-	(*DeleteUserResponse)(nil),    // 11: business.DeleteUserResponse
-	(*timestamppb.Timestamp)(nil), // 12: google.protobuf.Timestamp
+	(*GeneralResponse)(nil),       // 11: business.GeneralResponse
+	(*EmptyRequest)(nil),          // 12: business.EmptyRequest
+	(*timestamppb.Timestamp)(nil), // 13: google.protobuf.Timestamp
 }
-var file_proto_business_proto_depIdxs = []int32{
-	12, // 0: business.User.created_at:type_name -> google.protobuf.Timestamp
-	2,  // 1: business.Business.employees:type_name -> business.BusinessUser
-	3,  // 2: business.Business.some:type_name -> business.SocialMedia
-	12, // 3: business.Business.created_at:type_name -> google.protobuf.Timestamp
-	0,  // 4: business.CreateUserResponse.user:type_name -> business.User
-	0,  // 5: business.LoginResponse.user:type_name -> business.User
-	4,  // 6: business.UserService.CreateUser:input_type -> business.CreateUserRequest
-	6,  // 7: business.UserService.Login:input_type -> business.LoginRequest
-	8,  // 8: business.UserService.GetUser:input_type -> business.GetUserRequest
-	9,  // 9: business.UserService.UpdateUser:input_type -> business.UpdateUserRequest
-	10, // 10: business.UserService.DeleteUser:input_type -> business.DeleteUserRequest
-	5,  // 11: business.UserService.CreateUser:output_type -> business.CreateUserResponse
-	7,  // 12: business.UserService.Login:output_type -> business.LoginResponse
-	0,  // 13: business.UserService.GetUser:output_type -> business.User
-	0,  // 14: business.UserService.UpdateUser:output_type -> business.User
-	11, // 15: business.UserService.DeleteUser:output_type -> business.DeleteUserResponse
-	11, // [11:16] is the sub-list for method output_type
-	6,  // [6:11] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+var file_proto_common_business_proto_depIdxs = []int32{
+	13, // 0: business.User.created_at:type_name -> google.protobuf.Timestamp
+	13, // 1: business.User.updated_at:type_name -> google.protobuf.Timestamp
+	13, // 2: business.User.deleted_at:type_name -> google.protobuf.Timestamp
+	2,  // 3: business.Business.employees:type_name -> business.BusinessUser
+	4,  // 4: business.Business.some:type_name -> business.SocialMedia
+	13, // 5: business.Business.created_at:type_name -> google.protobuf.Timestamp
+	13, // 6: business.Business.updated_at:type_name -> google.protobuf.Timestamp
+	13, // 7: business.Business.deleted_at:type_name -> google.protobuf.Timestamp
+	0,  // 8: business.UserList.users:type_name -> business.User
+	0,  // 9: business.LoginResponse.user:type_name -> business.User
+	10, // [10:10] is the sub-list for method output_type
+	10, // [10:10] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
-func init() { file_proto_business_proto_init() }
-func file_proto_business_proto_init() {
-	if File_proto_business_proto != nil {
+func init() { file_proto_common_business_proto_init() }
+func file_proto_common_business_proto_init() {
+	if File_proto_common_business_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_business_proto_rawDesc), len(file_proto_business_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_common_business_proto_rawDesc), len(file_proto_common_business_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   13,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   0,
 		},
-		GoTypes:           file_proto_business_proto_goTypes,
-		DependencyIndexes: file_proto_business_proto_depIdxs,
-		MessageInfos:      file_proto_business_proto_msgTypes,
+		GoTypes:           file_proto_common_business_proto_goTypes,
+		DependencyIndexes: file_proto_common_business_proto_depIdxs,
+		MessageInfos:      file_proto_common_business_proto_msgTypes,
 	}.Build()
-	File_proto_business_proto = out.File
-	file_proto_business_proto_goTypes = nil
-	file_proto_business_proto_depIdxs = nil
+	File_proto_common_business_proto = out.File
+	file_proto_common_business_proto_goTypes = nil
+	file_proto_common_business_proto_depIdxs = nil
 }
