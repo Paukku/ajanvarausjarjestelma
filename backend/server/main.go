@@ -8,17 +8,16 @@ import (
 	"net/http"
 	"os"
 
-	common "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
+	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/repository"
+	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/service"
 	businessServices "github.com/Paukku/ajanvarausjarjestelma/backend/pb/http"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-
-	"github.com/golang-jwt/jwt/v5"
 )
 
 var jwtKey []byte
 
-// Määritellään oma tyyppi context-avainelle
 type contextKey string
 
 const userIDKey contextKey = "user_id"
@@ -36,12 +35,11 @@ func init() {
 	jwtKey = []byte(secret)
 }
 
-// AuthInterceptor tarkistaa JWT-tunnuksen ja lisää user_id:n kontekstiin
 func AuthInterceptor(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tokenStr := r.Header.Get("Authorization")
 		if tokenStr == "" {
-			http.Error(w, "missing token", http.StatusUnauthorized)
+			http.Error(w, "Missing token", http.StatusUnauthorized)
 			return
 		}
 
@@ -49,44 +47,38 @@ func AuthInterceptor(next http.Handler) http.Handler {
 			return jwtKey, nil
 		})
 		if err != nil || !token.Valid {
-			http.Error(w, "invalid token", http.StatusUnauthorized)
+			http.Error(w, "Invalid token", http.StatusUnauthorized)
 			return
 		}
 
-		claims := token.Claims.(jwt.MapClaims)
-		userID := int32(claims["user_id"].(float64))
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			http.Error(w, "Invalid claims", http.StatusUnauthorized)
+			return
+		}
 
-		ctx := context.WithValue(r.Context(), userIDKey, userID)
+		userID, ok := claims["user_id"].(float64)
+		if !ok {
+			http.Error(w, "Invalid user_id", http.StatusUnauthorized)
+			return
+		}
+
+		ctx := context.WithValue(r.Context(), userIDKey, int32(userID))
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
-// UserServiceServer toteuttaa BusinessCustomerAPIHTTPService -interfacen
-type UserServiceServer struct {
-	DB *sql.DB
-}
-
-func (s *UserServiceServer) CreateUser(ctx context.Context, req *common.CreateUserRequest) (*common.GeneralResponse, error) {
-	return &common.GeneralResponse{Success: true, Message: "User created!"}, nil
-}
-
-func (s *UserServiceServer) GetUser(ctx context.Context, req *common.EmptyRequest) (*common.UserList, error) {
-	return &common.UserList{Users: []*common.User{}}, nil
-}
-
-func (s *UserServiceServer) GetUserById(ctx context.Context, req *common.GetUserRequest) (*common.User, error) {
-	return &common.User{Uuid: "1", Name: "Test User"}, nil
-}
-
 func main() {
-	// Yhdistetään PostgreSQL:ään
+	_ = godotenv.Load()
+
 	dbURL := os.Getenv("DB_URL")
 	if dbURL == "" {
 		log.Fatal("DB_URL is not set")
 	}
+
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
-		log.Fatalf("failed to connect to DB: %v", err)
+		log.Fatalf("Failed to connect to DB: %v", err)
 	}
 	defer db.Close()
 
@@ -95,27 +87,26 @@ func main() {
 	}
 	fmt.Println("Connected to PostgreSQL!")
 
-	// Luo serveri ja converter
-	userService := &UserServiceServer{DB: db}
+	userService := &service.UserServiceServer{Repo: repository.NewPostgresUserRepository(db)}
+
 	converter := businessServices.NewBusinessCustomerAPIHTTPConverter(userService)
 
-	// Luo HTTP-mux ja rekisteröi handlerit
 	mux := http.NewServeMux()
+	registerRoutes(mux, converter)
 
-	_, path, handler := converter.CreateUserHTTPRule(nil)
-	mux.Handle(path, handler)
-
-	_, path, handler = converter.GetUserHTTPRule(nil)
-	mux.Handle(path, handler)
-
-	_, path, handler = converter.GetUserByIdHTTPRule(nil)
-	mux.Handle(path, handler)
-
-	// Lisää JWT auth-middleware
 	handlerWithAuth := AuthInterceptor(mux)
 
-	fmt.Println("HTTP server running on :8080")
+	fmt.Println("🚀 HTTP server running on :8080")
 	if err := http.ListenAndServe(":8080", handlerWithAuth); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+		log.Fatalf("Failed to serve: %v", err)
 	}
+}
+
+func registerRoutes(mux *http.ServeMux, converter *businessServices.BusinessCustomerAPIHTTPConverter) {
+	_, path, handler := converter.CreateUserHTTPRule(nil)
+	mux.Handle(path, handler)
+	_, path, handler = converter.GetUserHTTPRule(nil)
+	mux.Handle(path, handler)
+	_, path, handler = converter.GetUserByIdHTTPRule(nil)
+	mux.Handle(path, handler)
 }
