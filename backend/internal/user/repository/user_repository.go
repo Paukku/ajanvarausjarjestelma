@@ -22,7 +22,7 @@ func (r *PostgresUserRepository) ExistsByEmail(email string) (bool, error) {
 	return exists, err
 }
 
-func (r *PostgresUserRepository) Create(user *model.User) (*model.User, error) {
+func (r *PostgresUserRepository) CreateUser(user *model.User) (*model.User, error) {
 	if user.UUID == uuid.Nil {
 		user.UUID = uuid.New()
 	}

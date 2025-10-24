@@ -31,7 +31,7 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 		PasswordHash: req.Password, // myöhemmin hashaus tähän
 	}
 
-	_, err = s.Repo.Create(user)
+	_, err = s.Repo.CreateUser(user)
 	if err != nil {
 		return nil, err
 	}
