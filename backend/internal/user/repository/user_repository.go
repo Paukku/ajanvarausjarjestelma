@@ -28,10 +28,10 @@ func (r *PostgresUserRepository) CreateUser(user *model.User) (*model.User, erro
 	}
 
 	err := r.db.QueryRow(
-		`INSERT INTO users(uuid, name, email, password_hash) 
-		 VALUES($1, $2, $3, $4) 
+		`INSERT INTO users(uuid, name, email, password_hash, role) 
+		 VALUES($1, $2, $3, $4, $5) 
 		 RETURNING created_at, updated_at`,
-		user.UUID, user.Name, user.Email, user.PasswordHash,
+		user.UUID, user.Name, user.Email, user.PasswordHash, user.Role,
 	).Scan(&user.CreatedAt, &user.UpdatedAt)
 
 	if err != nil {

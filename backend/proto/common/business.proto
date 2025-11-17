@@ -8,10 +8,17 @@ message User {
   string  uuid = 1;
   string name = 2;
   string email = 3;
+  UserRole role = 4;
   
   google.protobuf.Timestamp created_at = 100;
   google.protobuf.Timestamp updated_at = 101;
   google.protobuf.Timestamp deleted_at = 102;
+}
+
+enum UserRole {
+  EMPLOYEE = 0;
+  OWNER = 1;
+  ADMIN = 2;
 }
 
 message Business {
@@ -31,7 +38,7 @@ message Business {
 message BusinessUser {
   string  business_uuid = 1;
   string  user_uuid = 2;
-  string role = 3; // owner, employee
+  UserRole role = 3;
   string name = 4;
   string email = 5;
 }
@@ -49,7 +56,7 @@ message CreateUserRequest {
   string name = 1;
   string email = 2;
   string password = 3;
-  string role = 4;
+  UserRole role = 4;
 }
 
 message LoginRequest {

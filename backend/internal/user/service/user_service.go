@@ -26,9 +26,10 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 	}
 
 	user := &model.User{
-		Name:         req.Name,
-		Email:        req.Email,
-		PasswordHash: req.Password, // myöhemmin hashaus tähän
+		Name:         req.GetName(),
+		Email:        req.GetEmail(),
+		PasswordHash: req.GetPassword(), // myöhemmin hashaus tähän
+		Role:         req.GetRole().String(),
 	}
 
 	_, err = s.Repo.CreateUser(user)

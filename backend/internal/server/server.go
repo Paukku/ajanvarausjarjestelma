@@ -36,6 +36,9 @@ func Run() {
 	_, path, createHandler := converter.CreateUserHTTPRule(nil)
 	mux.Handle(path, createHandler)
 
+	_, getUserPath, getUserHandler := converter.GetUserHTTPRule(nil)
+	mux.Handle(getUserPath, getUserHandler)
+
 	fmt.Println("Server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
