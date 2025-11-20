@@ -1,7 +1,6 @@
 package server
 
 import (
-	"context"
 	"database/sql"
 	"fmt"
 	"log"
@@ -9,7 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v5"
+
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
@@ -28,6 +28,14 @@ type ApiRegister struct {
 
 var jwtSecret []byte
 
+type RoleString string
+
+var RoleStringToEnum = map[RoleString]pbcommon.UserRole{
+	RoleString("Admin"):    pbcommon.UserRole_ADMIN,
+	RoleString("Owner"):    pbcommon.UserRole_OWNER,
+	RoleString("Employee"): pbcommon.UserRole_EMPLOYEE,
+}
+
 func RoleMiddleware(required pbcommon.UserRole) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -36,13 +44,14 @@ func RoleMiddleware(required pbcommon.UserRole) func(http.Handler) http.Handler 
 				http.Error(w, "missing authorization header", http.StatusUnauthorized)
 				return
 			}
+
 			parts := strings.SplitN(auth, " ", 2)
 			if len(parts) != 2 || !strings.EqualFold(parts[0], "bearer") {
 				http.Error(w, "invalid authorization header", http.StatusUnauthorized)
 				return
 			}
-			tokenStr := parts[1]
 
+			tokenStr := parts[1]
 			token, err := jwt.Parse(tokenStr, func(t *jwt.Token) (interface{}, error) {
 				return jwtSecret, nil
 			})
@@ -57,34 +66,21 @@ func RoleMiddleware(required pbcommon.UserRole) func(http.Handler) http.Handler 
 				return
 			}
 
-			// Esimerkki: oletetaan claim "role" on numero (float64)
-			roleVal, ok := claims["role"]
+			rawRole, ok := claims["role"].(string)
 			if !ok {
-				http.Error(w, "role not found in token", http.StatusForbidden)
+				http.Error(w, "role must be a string", http.StatusForbidden)
 				return
 			}
 
-			// vertaillaan numeerisesti — proto enumit ovat int32 tyyppiä
-			var roleInt int32
-			switch v := roleVal.(type) {
-			case float64:
-				roleInt = int32(v)
-			case int:
-				roleInt = int32(v)
-			default:
-				http.Error(w, "invalid role claim type", http.StatusForbidden)
+			userRole, exists := RoleStringToEnum[RoleString(rawRole)]
+			if !exists {
+				http.Error(w, "unknown role", http.StatusForbidden)
 				return
 			}
 
-			if pbcommon.UserRole(roleInt) < required { // yksinkertainen vertailu; säädä logiikka tarpeen mukaan
+			if userRole < required {
 				http.Error(w, "forbidden", http.StatusForbidden)
 				return
-			}
-
-			// Jos haluat user_id:in kontekstiin:
-			if uid, ok := claims["user_id"].(float64); ok {
-				ctx := context.WithValue(r.Context(), "user_id", int32(uid))
-				r = r.WithContext(ctx)
 			}
 
 			next.ServeHTTP(w, r)
@@ -94,6 +90,7 @@ func RoleMiddleware(required pbcommon.UserRole) func(http.Handler) http.Handler 
 
 func Run() {
 	_ = godotenv.Load()
+	jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
 	db, err := sql.Open("postgres", os.Getenv("DB_URL"))
 	if err != nil {
@@ -101,7 +98,6 @@ func Run() {
 	}
 	defer db.Close()
 
-	// rakenna riippuvuudet
 	userRepo := repository.NewPostgresUserRepository(db)
 	userService := service.NewUserServiceServer(userRepo)
 	userHandler := handler.NewUserHandler(userService)
