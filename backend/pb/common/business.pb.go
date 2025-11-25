@@ -25,22 +25,25 @@ const (
 type UserRole int32
 
 const (
-	UserRole_EMPLOYEE UserRole = 0
-	UserRole_OWNER    UserRole = 1
-	UserRole_ADMIN    UserRole = 2
+	UserRole_UNAUTHORIZED UserRole = 0
+	UserRole_EMPLOYEE     UserRole = 1
+	UserRole_OWNER        UserRole = 2
+	UserRole_ADMIN        UserRole = 3
 )
 
 // Enum value maps for UserRole.
 var (
 	UserRole_name = map[int32]string{
-		0: "EMPLOYEE",
-		1: "OWNER",
-		2: "ADMIN",
+		0: "UNAUTHORIZED",
+		1: "EMPLOYEE",
+		2: "OWNER",
+		3: "ADMIN",
 	}
 	UserRole_value = map[string]int32{
-		"EMPLOYEE": 0,
-		"OWNER":    1,
-		"ADMIN":    2,
+		"UNAUTHORIZED": 0,
+		"EMPLOYEE":     1,
+		"OWNER":        2,
+		"ADMIN":        3,
 	}
 )
 
@@ -139,7 +142,7 @@ func (x *User) GetRole() UserRole {
 	if x != nil {
 		return x.Role
 	}
-	return UserRole_EMPLOYEE
+	return UserRole_UNAUTHORIZED
 }
 
 func (x *User) GetCreatedAt() *timestamppb.Timestamp {
@@ -346,7 +349,7 @@ func (x *BusinessUser) GetRole() UserRole {
 	if x != nil {
 		return x.Role
 	}
-	return UserRole_EMPLOYEE
+	return UserRole_UNAUTHORIZED
 }
 
 func (x *BusinessUser) GetName() string {
@@ -524,7 +527,7 @@ func (x *CreateUserRequest) GetRole() UserRole {
 	if x != nil {
 		return x.Role
 	}
-	return UserRole_EMPLOYEE
+	return UserRole_UNAUTHORIZED
 }
 
 type LoginRequest struct {
@@ -932,11 +935,12 @@ const file_common_business_proto_rawDesc = "" +
 	"\x0fGeneralResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\x0e\n" +
-	"\fEmptyRequest*.\n" +
-	"\bUserRole\x12\f\n" +
-	"\bEMPLOYEE\x10\x00\x12\t\n" +
-	"\x05OWNER\x10\x01\x12\t\n" +
-	"\x05ADMIN\x10\x02BBZ@github.com/Paukku/ajanvarausjarjestelma/backend/pb/common;commonb\x06proto3"
+	"\fEmptyRequest*@\n" +
+	"\bUserRole\x12\x10\n" +
+	"\fUNAUTHORIZED\x10\x00\x12\f\n" +
+	"\bEMPLOYEE\x10\x01\x12\t\n" +
+	"\x05OWNER\x10\x02\x12\t\n" +
+	"\x05ADMIN\x10\x03BBZ@github.com/Paukku/ajanvarausjarjestelma/backend/pb/common;commonb\x06proto3"
 
 var (
 	file_common_business_proto_rawDescOnce sync.Once
