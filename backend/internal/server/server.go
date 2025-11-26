@@ -28,6 +28,10 @@ func Run() {
 	}
 	defer db.Close()
 
+	if err := db.Ping(); err != nil {
+		log.Fatalf("failed to ping DB: %v", err)
+	}
+
 	userRepo := repository.NewPostgresUserRepository(db)
 	userService := service.NewUserServiceServer(userRepo)
 	userHandler := handler.NewUserHandler(userService)

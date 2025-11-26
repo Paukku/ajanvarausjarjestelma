@@ -23,7 +23,7 @@ type ApiRegister struct {
 
 func RegisterRoutes(mux *http.ServeMux, userConverter *pbHTTP.BusinessCustomerAPIHTTPConverter) {
 	userApiRegister := []ApiRegister{
-		{rule: userConverter.CreateUserHTTPRule, accessRole: pbcommon.UserRole_OWNER},
+		{rule: userConverter.CreateUserHTTPRule, accessRole: pbcommon.UserRole_UNAUTHORIZED},
 		{rule: userConverter.GetUserHTTPRule, accessRole: pbcommon.UserRole_OWNER},
 		{rule: userConverter.GetUserByIdHTTPRule, accessRole: pbcommon.UserRole_OWNER},
 	}
