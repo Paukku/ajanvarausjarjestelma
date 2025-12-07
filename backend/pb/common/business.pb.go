@@ -25,25 +25,28 @@ const (
 type UserRole int32
 
 const (
-	UserRole_UNAUTHORIZED UserRole = 0
-	UserRole_EMPLOYEE     UserRole = 1
-	UserRole_OWNER        UserRole = 2
-	UserRole_ADMIN        UserRole = 3
+	UserRole_UNKNOWN      UserRole = 0
+	UserRole_UNAUTHORIZED UserRole = 1
+	UserRole_EMPLOYEE     UserRole = 2
+	UserRole_OWNER        UserRole = 3
+	UserRole_ADMIN        UserRole = 4
 )
 
 // Enum value maps for UserRole.
 var (
 	UserRole_name = map[int32]string{
-		0: "UNAUTHORIZED",
-		1: "EMPLOYEE",
-		2: "OWNER",
-		3: "ADMIN",
+		0: "UNKNOWN",
+		1: "UNAUTHORIZED",
+		2: "EMPLOYEE",
+		3: "OWNER",
+		4: "ADMIN",
 	}
 	UserRole_value = map[string]int32{
-		"UNAUTHORIZED": 0,
-		"EMPLOYEE":     1,
-		"OWNER":        2,
-		"ADMIN":        3,
+		"UNKNOWN":      0,
+		"UNAUTHORIZED": 1,
+		"EMPLOYEE":     2,
+		"OWNER":        3,
+		"ADMIN":        4,
 	}
 )
 
@@ -142,7 +145,7 @@ func (x *User) GetRole() UserRole {
 	if x != nil {
 		return x.Role
 	}
-	return UserRole_UNAUTHORIZED
+	return UserRole_UNKNOWN
 }
 
 func (x *User) GetCreatedAt() *timestamppb.Timestamp {
@@ -349,7 +352,7 @@ func (x *BusinessUser) GetRole() UserRole {
 	if x != nil {
 		return x.Role
 	}
-	return UserRole_UNAUTHORIZED
+	return UserRole_UNKNOWN
 }
 
 func (x *BusinessUser) GetName() string {
@@ -527,7 +530,7 @@ func (x *CreateUserRequest) GetRole() UserRole {
 	if x != nil {
 		return x.Role
 	}
-	return UserRole_UNAUTHORIZED
+	return UserRole_UNKNOWN
 }
 
 type LoginRequest struct {
@@ -935,12 +938,13 @@ const file_common_business_proto_rawDesc = "" +
 	"\x0fGeneralResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\x0e\n" +
-	"\fEmptyRequest*@\n" +
-	"\bUserRole\x12\x10\n" +
-	"\fUNAUTHORIZED\x10\x00\x12\f\n" +
-	"\bEMPLOYEE\x10\x01\x12\t\n" +
-	"\x05OWNER\x10\x02\x12\t\n" +
-	"\x05ADMIN\x10\x03BBZ@github.com/Paukku/ajanvarausjarjestelma/backend/pb/common;commonb\x06proto3"
+	"\fEmptyRequest*M\n" +
+	"\bUserRole\x12\v\n" +
+	"\aUNKNOWN\x10\x00\x12\x10\n" +
+	"\fUNAUTHORIZED\x10\x01\x12\f\n" +
+	"\bEMPLOYEE\x10\x02\x12\t\n" +
+	"\x05OWNER\x10\x03\x12\t\n" +
+	"\x05ADMIN\x10\x04BBZ@github.com/Paukku/ajanvarausjarjestelma/backend/pb/common;commonb\x06proto3"
 
 var (
 	file_common_business_proto_rawDescOnce sync.Once

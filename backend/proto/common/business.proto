@@ -16,10 +16,11 @@ message User {
 }
 
 enum UserRole {
-  UNAUTHORIZED = 0;
-  EMPLOYEE = 1;
-  OWNER = 2;
-  ADMIN = 3;
+  UNKNOWN = 0;
+  UNAUTHORIZED = 1;
+  EMPLOYEE = 2;
+  OWNER = 3;
+  ADMIN = 4;
 }
 
 message Business {

@@ -2,10 +2,12 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/model"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/repository"
 	pb "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserServiceServer struct {
@@ -25,10 +27,15 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 		return &pb.GeneralResponse{Success: false, Message: "Email already exists"}, nil
 	}
 
+	hashed, err := bcrypt.GenerateFromPassword([]byte(req.GetPassword()), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, fmt.Errorf("failed to hash password: %w", err)
+	}
+
 	user := &model.User{
 		Name:         req.GetName(),
 		Email:        req.GetEmail(),
-		PasswordHash: req.GetPassword(), // myöhemmin hashaus tähän
+		PasswordHash: string(hashed),
 		Role:         req.GetRole().String(),
 	}
 
@@ -41,7 +48,12 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 }
 
 func (s *UserServiceServer) GetUser(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
-	return &pb.UserList{Users: []*pb.User{}}, nil
+	users, err := s.Repo.GetUsers()
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.UserList{Users: model.ConvertUserListToPB(users)}, nil
 }
 
 func (s *UserServiceServer) GetUserById(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {

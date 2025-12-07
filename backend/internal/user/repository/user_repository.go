@@ -40,3 +40,27 @@ func (r *PostgresUserRepository) CreateUser(user *model.User) (*model.User, erro
 
 	return user, nil
 }
+
+func (r *PostgresUserRepository) GetUsers() ([]*model.User, error) {
+	rows, err := r.db.Query("SELECT uuid, name, email, role, created_at, updated_at FROM users")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var users []*model.User
+	for rows.Next() {
+		user := &model.User{}
+		err := rows.Scan(&user.UUID, &user.Name, &user.Email, &user.Role, &user.CreatedAt, &user.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
