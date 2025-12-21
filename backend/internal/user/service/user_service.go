@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/audit"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/model"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/repository"
 	pb "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
@@ -11,7 +12,8 @@ import (
 )
 
 type UserServiceServer struct {
-	Repo *repository.PostgresUserRepository
+	audit *audit.Service
+	Repo  *repository.PostgresUserRepository
 }
 
 func NewUserServiceServer(repo *repository.PostgresUserRepository) *UserServiceServer {
@@ -23,6 +25,7 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 	if err != nil {
 		return nil, err
 	}
+
 	if exists {
 		return &pb.GeneralResponse{Success: false, Message: "Email already exists"}, nil
 	}
@@ -36,13 +39,21 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 		Name:         req.GetName(),
 		Email:        req.GetEmail(),
 		PasswordHash: string(hashed),
-		Role:         req.GetRole().String(),
+		Role:         pb.UserRole_UNAUTHORIZED.String(),
 	}
 
-	_, err = s.Repo.CreateUser(user)
+	createdUser, err := s.Repo.CreateUser(user)
 	if err != nil {
 		return nil, err
 	}
+
+	s.audit.Log(
+		ctx,
+		"USER_CREATED",
+		"user",
+		&createdUser.UUID,
+		nil, // ei vielä kirjautunut
+	)
 
 	return &pb.GeneralResponse{Success: true, Message: "User created!"}, nil
 }

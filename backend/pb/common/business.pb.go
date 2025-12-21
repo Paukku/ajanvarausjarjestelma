@@ -470,7 +470,6 @@ type CreateUserRequest struct {
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
 	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Role          UserRole               `protobuf:"varint,4,opt,name=role,proto3,enum=common.UserRole" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -524,13 +523,6 @@ func (x *CreateUserRequest) GetPassword() string {
 		return x.Password
 	}
 	return ""
-}
-
-func (x *CreateUserRequest) GetRole() UserRole {
-	if x != nil {
-		return x.Role
-	}
-	return UserRole_UNKNOWN
 }
 
 type LoginRequest struct {
@@ -915,12 +907,11 @@ const file_common_business_proto_rawDesc = "" +
 	"\x05users\x18\x01 \x03(\v2\f.common.UserR\x05users\";\n" +
 	"\vSocialMedia\x12\x1a\n" +
 	"\bplatform\x18\x01 \x01(\tR\bplatform\x12\x10\n" +
-	"\x03url\x18\x02 \x01(\tR\x03url\"\x7f\n" +
+	"\x03url\x18\x02 \x01(\tR\x03url\"Y\n" +
 	"\x11CreateUserRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\x12$\n" +
-	"\x04role\x18\x04 \x01(\x0e2\x10.common.UserRoleR\x04role\"@\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"@\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"G\n" +
@@ -989,13 +980,12 @@ var file_common_business_proto_depIdxs = []int32{
 	14, // 8: common.Business.deleted_at:type_name -> google.protobuf.Timestamp
 	0,  // 9: common.BusinessUser.role:type_name -> common.UserRole
 	1,  // 10: common.UserList.users:type_name -> common.User
-	0,  // 11: common.CreateUserRequest.role:type_name -> common.UserRole
-	1,  // 12: common.LoginResponse.user:type_name -> common.User
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	1,  // 11: common.LoginResponse.user:type_name -> common.User
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_common_business_proto_init() }

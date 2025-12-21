@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/service"
+	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/validation"
 	pb "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
 )
 
@@ -16,6 +17,10 @@ func NewUserHandler(userService *service.UserServiceServer) *UserHandler {
 }
 
 func (h *UserHandler) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.GeneralResponse, error) {
+	if err := validation.ValidateCreateUserRequest(req); err != nil {
+		return nil, err
+	}
+
 	return h.userService.CreateUser(ctx, req)
 }
 
