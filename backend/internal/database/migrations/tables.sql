@@ -31,3 +31,14 @@ CREATE TABLE business_users (
   role VARCHAR(20),
   PRIMARY KEY (business_uuid, user_uuid)
 );
+
+CREATE TABLE audit_logs (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  action VARCHAR(50) NOT NULL,
+  entity VARCHAR(50) NOT NULL,
+  entity_id UUID,
+  actor_id UUID,
+  ip_address VARCHAR(45),
+  user_agent TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
