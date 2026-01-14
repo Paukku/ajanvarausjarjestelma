@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/audit"
-	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/auth/actorctx"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/model"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/repository"
 	pb "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
@@ -43,8 +42,6 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 		Role:         pb.UserRole_UNAUTHORIZED.String(),
 	}
 
-	actorID, _ := actorctx.ActorIDFromContext(ctx)
-
 	createdUser, err := s.Repo.CreateUser(user)
 	if err != nil {
 		return nil, err
@@ -55,7 +52,6 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 		"USER_CREATED",
 		"user",
 		&createdUser.UUID,
-		actorID,
 	)
 
 	return &pb.GeneralResponse{Success: true, Message: "User created!"}, nil

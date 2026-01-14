@@ -3,6 +3,7 @@ package audit
 import (
 	"context"
 
+	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/auth/actorctx"
 	"github.com/google/uuid"
 )
 
@@ -19,8 +20,13 @@ func (s *Service) Log(
 	action string,
 	entity string,
 	entityID *uuid.UUID,
-	actorID *uuid.UUID,
 ) {
-	// EI saa kaataa requestia
+
+	var actorID *uuid.UUID
+
+	if id, ok := actorctx.ActorIDFromContext(ctx); ok {
+		actorID = id
+	}
+	// Ignoring error for logging
 	_ = s.repo.Insert(ctx, action, entity, entityID, actorID)
 }
