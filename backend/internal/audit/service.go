@@ -7,12 +7,8 @@ import (
 	"github.com/google/uuid"
 )
 
-type Repository interface {
-	Insert(ctx context.Context, action string, entity string, entityID *uuid.UUID, actorID *uuid.UUID) error
-}
-
 type Service struct {
-	repo Repository
+	repo *PostgresRepository
 }
 
 func (s *Service) Log(
@@ -28,5 +24,12 @@ func (s *Service) Log(
 		actorID = id
 	}
 	// Ignoring error for logging
-	_ = s.repo.Insert(ctx, action, entity, entityID, actorID)
+	_ = s.repo.Insert(ctx, action, entity, entityID, actorID, nil, nil)
+}
+
+func (s *Service) GetLogs(
+	ctx context.Context,
+	limit, offset int,
+) ([]Log, error) {
+	return s.repo.Find(ctx, limit, offset)
 }
