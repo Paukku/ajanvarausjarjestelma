@@ -13,9 +13,9 @@ service BusinessCustomerAPI {
       body: "*"
     };
   }
-  rpc GetUser(common.EmptyRequest) returns(common.UserList) {
+  rpc GetUsers(common.EmptyRequest) returns(common.UserList) {
     option (google.api.http) = {
-      get: "/api/v1/users/getUser"
+      get: "/api/v1/users/getUsers"
     };
   }
   rpc GetUserById(common.GetUserRequest) returns (common.User) {

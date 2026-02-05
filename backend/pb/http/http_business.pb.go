@@ -26,11 +26,11 @@ var File_http_http_business_proto protoreflect.FileDescriptor
 
 const file_http_http_business_proto_rawDesc = "" +
 	"\n" +
-	"\x18http/http_business.proto\x12\rhttp_business\x1a\x1cgoogle/api/annotations.proto\x1a\x15common/business.proto2\xa1\x02\n" +
+	"\x18http/http_business.proto\x12\rhttp_business\x1a\x1cgoogle/api/annotations.proto\x1a\x15common/business.proto2\xa3\x02\n" +
 	"\x13BusinessCustomerAPI\x12e\n" +
 	"\n" +
-	"CreateUser\x12\x19.common.CreateUserRequest\x1a\x17.common.GeneralResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/users/createUser\x12P\n" +
-	"\aGetUser\x12\x14.common.EmptyRequest\x1a\x10.common.UserList\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/api/v1/users/getUser\x12Q\n" +
+	"CreateUser\x12\x19.common.CreateUserRequest\x1a\x17.common.GeneralResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/users/createUser\x12R\n" +
+	"\bGetUsers\x12\x14.common.EmptyRequest\x1a\x10.common.UserList\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/api/v1/users/getUsers\x12Q\n" +
 	"\vGetUserById\x12\x16.common.GetUserRequest\x1a\f.common.User\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/api/v1/users/{uuid}B$Z\"/businessServices;businessServicesb\x06proto3"
 
 var file_http_http_business_proto_goTypes = []any{
@@ -43,10 +43,10 @@ var file_http_http_business_proto_goTypes = []any{
 }
 var file_http_http_business_proto_depIdxs = []int32{
 	0, // 0: http_business.BusinessCustomerAPI.CreateUser:input_type -> common.CreateUserRequest
-	1, // 1: http_business.BusinessCustomerAPI.GetUser:input_type -> common.EmptyRequest
+	1, // 1: http_business.BusinessCustomerAPI.GetUsers:input_type -> common.EmptyRequest
 	2, // 2: http_business.BusinessCustomerAPI.GetUserById:input_type -> common.GetUserRequest
 	3, // 3: http_business.BusinessCustomerAPI.CreateUser:output_type -> common.GeneralResponse
-	4, // 4: http_business.BusinessCustomerAPI.GetUser:output_type -> common.UserList
+	4, // 4: http_business.BusinessCustomerAPI.GetUsers:output_type -> common.UserList
 	5, // 5: http_business.BusinessCustomerAPI.GetUserById:output_type -> common.User
 	3, // [3:6] is the sub-list for method output_type
 	0, // [0:3] is the sub-list for method input_type

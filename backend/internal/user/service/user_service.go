@@ -57,7 +57,7 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 	return &pb.GeneralResponse{Success: true, Message: "User created!"}, nil
 }
 
-func (s *UserServiceServer) GetUser(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
+func (s *UserServiceServer) GetUsers(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
 	users, err := s.Repo.GetUsers()
 	if err != nil {
 		return nil, err

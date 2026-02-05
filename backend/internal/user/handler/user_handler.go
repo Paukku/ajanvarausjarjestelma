@@ -24,8 +24,8 @@ func (h *UserHandler) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 	return h.userService.CreateUser(ctx, req)
 }
 
-func (h *UserHandler) GetUser(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
-	return h.userService.GetUser(ctx, req)
+func (h *UserHandler) GetUsers(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
+	return h.userService.GetUsers(ctx, req)
 }
 
 func (h *UserHandler) GetUserById(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {

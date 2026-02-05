@@ -21,13 +21,13 @@ type ApiRegister struct {
 	accessRole pbcommon.UserRole
 }
 
-func RegisterRoutes(mux *http.ServeMux, userConverter *pbHTTP.BusinessCustomerAPIHTTPConverter) {
+func RegisterRoutes(mux *http.ServeMux, userConverter *pbHTTP.BusinessCustomerAPIHTTPConverter, auditConverter *pbcommon.AuditServiceHTTPConverter) {
 	userApiRegister := []ApiRegister{
 		{rule: userConverter.CreateUserHTTPRule, accessRole: pbcommon.UserRole_UNAUTHORIZED},
-		{rule: userConverter.GetUserHTTPRule, accessRole: pbcommon.UserRole_UNAUTHORIZED},
+		{rule: userConverter.GetUsersHTTPRule, accessRole: pbcommon.UserRole_UNAUTHORIZED},
 		{rule: userConverter.GetUserByIdHTTPRule, accessRole: pbcommon.UserRole_OWNER},
 	}
-
+	// TÄHÄN AUDIT LOGS
 	// TULEVA ADMIN LISTA
 	// adminApiRegister := []ApiRegister{
 	// 	  {rule: adminConverter.CreateCompanyHTTPRule, accessRole: pbcommon.UserRole_ADMIN},
