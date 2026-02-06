@@ -24,8 +24,21 @@ func (h *UserHandler) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 	return h.userService.CreateUser(ctx, req)
 }
 
-func (h *UserHandler) GetUsers(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
-	return h.userService.GetUsers(ctx, req)
+func (h *UserHandler) GetUsers(ctx context.Context, req *pb.GetUsersRequest) (*pb.GetUsersResponse, error) {
+	// default-arvot
+	limit := req.Limit
+	if limit == 0 {
+		limit = 50
+	}
+
+	offset := req.Offset
+
+	usersResponse, err := h.userService.GetUsers(ctx, limit, offset)
+	if err != nil {
+		return nil, err
+	}
+
+	return usersResponse, nil
 }
 
 func (h *UserHandler) GetUserById(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {

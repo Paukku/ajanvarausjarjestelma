@@ -13,7 +13,7 @@ service BusinessCustomerAPI {
       body: "*"
     };
   }
-  rpc GetUsers(common.EmptyRequest) returns(common.UserList) {
+  rpc GetUsers(common.GetUsersRequest) returns(common.GetUsersResponse) {
     option (google.api.http) = {
       get: "/api/v1/users/getUsers"
     };

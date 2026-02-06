@@ -17,13 +17,14 @@ import (
 	ioutil "io/ioutil"
 	mime "mime"
 	http "net/http"
+	strconv "strconv"
 	strings "strings"
 )
 
 // BusinessCustomerAPIHTTPService is the server API for BusinessCustomerAPI service.
 type BusinessCustomerAPIHTTPService interface {
 	CreateUser(context.Context, *common.CreateUserRequest) (*common.GeneralResponse, error)
-	GetUsers(context.Context, *common.EmptyRequest) (*common.UserList, error)
+	GetUsers(context.Context, *common.GetUsersRequest) (*common.GetUsersResponse, error)
 	GetUserById(context.Context, *common.GetUserRequest) (*common.User, error)
 }
 
@@ -370,7 +371,7 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUsers(cb func(ctx context.Context,
 
 		w.Header().Set("Content-Type", accept)
 
-		arg := &common.EmptyRequest{}
+		arg := &common.GetUsersRequest{}
 		if r.Method != http.MethodGet {
 			body, err := ioutil.ReadAll(r.Body)
 			if err != nil {
@@ -418,7 +419,7 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUsers(cb func(ctx context.Context,
 		}
 
 		handler := func(c context.Context, req interface{}) (interface{}, error) {
-			return h.srv.GetUsers(c, req.(*common.EmptyRequest))
+			return h.srv.GetUsers(c, req.(*common.GetUsersRequest))
 		}
 
 		iret, err := chained(ctx, arg, info, handler)
@@ -427,9 +428,9 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUsers(cb func(ctx context.Context,
 			return
 		}
 
-		ret, ok := iret.(*common.UserList)
+		ret, ok := iret.(*common.GetUsersResponse)
 		if !ok {
-			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUsers: interceptors have not return common.UserList"))
+			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUsers: interceptors have not return common.GetUsersResponse"))
 			return
 		}
 
@@ -515,8 +516,24 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUsersHTTPRule(cb func(ctx context.
 
 		w.Header().Set("Content-Type", accept)
 
-		arg := &common.EmptyRequest{}
+		arg := &common.GetUsersRequest{}
 		if r.Method == http.MethodGet {
+			if v := r.URL.Query().Get("limit"); v != "" {
+				c, err := strconv.ParseInt(v, 10, 32)
+				if err != nil {
+					cb(ctx, w, r, nil, nil, err)
+					return
+				}
+				arg.Limit = int32(c)
+			}
+			if v := r.URL.Query().Get("offset"); v != "" {
+				c, err := strconv.ParseInt(v, 10, 32)
+				if err != nil {
+					cb(ctx, w, r, nil, nil, err)
+					return
+				}
+				arg.Offset = int32(c)
+			}
 		}
 
 		n := len(interceptors)
@@ -540,7 +557,7 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUsersHTTPRule(cb func(ctx context.
 		}
 
 		handler := func(c context.Context, req interface{}) (interface{}, error) {
-			return h.srv.GetUsers(c, req.(*common.EmptyRequest))
+			return h.srv.GetUsers(c, req.(*common.GetUsersRequest))
 		}
 
 		iret, err := chained(ctx, arg, info, handler)
@@ -549,9 +566,9 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUsersHTTPRule(cb func(ctx context.
 			return
 		}
 
-		ret, ok := iret.(*common.UserList)
+		ret, ok := iret.(*common.GetUsersResponse)
 		if !ok {
-			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUsers: interceptors have not return common.UserList"))
+			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUsers: interceptors have not return common.GetUsersResponse"))
 			return
 		}
 
