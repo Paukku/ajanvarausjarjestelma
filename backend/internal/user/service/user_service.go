@@ -52,19 +52,18 @@ func (s *UserServiceServer) CreateUser(ctx context.Context, req *pb.CreateUserRe
 		"USER_CREATED",
 		"user",
 		&createdUser.UUID,
-		nil, // ei vielä kirjautunut
 	)
 
 	return &pb.GeneralResponse{Success: true, Message: "User created!"}, nil
 }
 
-func (s *UserServiceServer) GetUser(ctx context.Context, req *pb.EmptyRequest) (*pb.UserList, error) {
-	users, err := s.Repo.GetUsers()
+func (s *UserServiceServer) GetUsers(ctx context.Context, limit, offset int32) (*pb.GetUsersResponse, error) {
+	users, err := s.Repo.GetUsers(limit, offset)
 	if err != nil {
 		return nil, err
 	}
 
-	return &pb.UserList{Users: model.ConvertUserListToPB(users)}, nil
+	return &pb.GetUsersResponse{Users: model.ConvertUserListToPB(users)}, nil
 }
 
 func (s *UserServiceServer) GetUserById(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {

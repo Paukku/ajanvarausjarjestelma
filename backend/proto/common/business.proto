@@ -45,10 +45,6 @@ message BusinessUser {
   string email = 5;
 }
 
-message UserList { 
-  repeated User users = 1;
-}
-
 message SocialMedia {
   string platform = 1;
   string url = 2;
@@ -90,4 +86,12 @@ message GeneralResponse {
   string message = 2;
 }
 
-message EmptyRequest {}
+message GetUsersRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message GetUsersResponse {
+  repeated User users = 1;
+  int32 total = 2;
+}

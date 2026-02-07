@@ -4,6 +4,9 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/auth/actorctx"
+	"github.com/google/uuid"
+
 	role "github.com/Paukku/ajanvarausjarjestelma/backend/internal/auth"
 	pbcommon "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
 	"github.com/golang-jwt/jwt/v5"
@@ -65,4 +68,14 @@ func RoleMiddleware(required pbcommon.UserRole) func(http.Handler) http.Handler 
 			next.ServeHTTP(w, r)
 		})
 	}
+}
+
+func MockAuth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// TODO: korvataan JWT-validoinnilla
+		actorID := uuid.New()
+
+		ctx := actorctx.ContextWithActorID(r.Context(), actorID)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
 }

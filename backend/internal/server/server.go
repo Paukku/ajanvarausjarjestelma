@@ -13,6 +13,7 @@ import (
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/handler"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/repository"
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/user/service"
+	pbCommon "github.com/Paukku/ajanvarausjarjestelma/backend/pb/common"
 	pbHTTP "github.com/Paukku/ajanvarausjarjestelma/backend/pb/http"
 )
 
@@ -37,8 +38,9 @@ func Run() {
 	userHandler := handler.NewUserHandler(userService)
 
 	converter := pbHTTP.NewBusinessCustomerAPIHTTPConverter(userHandler)
+	converterAudit := pbCommon.NewAuditServiceHTTPConverter(nil)
 	mux := http.NewServeMux()
-	RegisterRoutes(mux, converter)
+	RegisterRoutes(mux, converter, converterAudit)
 
 	fmt.Println("Server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))

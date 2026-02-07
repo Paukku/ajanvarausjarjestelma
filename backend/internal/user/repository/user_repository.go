@@ -3,6 +3,7 @@ package repository
 import (
 	"database/sql"
 	//"time"
+	"fmt"
 
 	"github.com/Paukku/ajanvarausjarjestelma/backend/internal/model"
 	"github.com/google/uuid"
@@ -41,10 +42,28 @@ func (r *PostgresUserRepository) CreateUser(user *model.User) (*model.User, erro
 	return user, nil
 }
 
-func (r *PostgresUserRepository) GetUsers() ([]*model.User, error) {
-	rows, err := r.db.Query("SELECT uuid, name, email, role, created_at, updated_at FROM users")
+func (r *PostgresUserRepository) GetUsers(limit, offset int32) ([]*model.User, error) {
+	// varmista, ettei limit ole negatiivinen tai liian suuri
+	if limit <= 0 {
+		limit = 50
+	} else if limit > 100 {
+		limit = 100
+	}
+
+	if offset < 0 {
+		offset = 0
+	}
+
+	query := `
+		SELECT uuid, name, email, role, created_at, updated_at
+		FROM users
+		ORDER BY created_at DESC
+		LIMIT $1 OFFSET $2
+	`
+
+	rows, err := r.db.Query(query, limit, offset)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to query users with limit=%d offset=%d: %w", limit, offset, err)
 	}
 	defer rows.Close()
 
@@ -53,13 +72,13 @@ func (r *PostgresUserRepository) GetUsers() ([]*model.User, error) {
 		user := &model.User{}
 		err := rows.Scan(&user.UUID, &user.Name, &user.Email, &user.Role, &user.CreatedAt, &user.UpdatedAt)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to scan user row: %w", err)
 		}
 		users = append(users, user)
 	}
 
 	if err = rows.Err(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("rows iteration error: %w", err)
 	}
 
 	return users, nil

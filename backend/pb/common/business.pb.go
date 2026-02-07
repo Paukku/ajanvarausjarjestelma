@@ -369,50 +369,6 @@ func (x *BusinessUser) GetEmail() string {
 	return ""
 }
 
-type UserList struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Users         []*User                `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UserList) Reset() {
-	*x = UserList{}
-	mi := &file_common_business_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UserList) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UserList) ProtoMessage() {}
-
-func (x *UserList) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UserList.ProtoReflect.Descriptor instead.
-func (*UserList) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *UserList) GetUsers() []*User {
-	if x != nil {
-		return x.Users
-	}
-	return nil
-}
-
 type SocialMedia struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Platform      string                 `protobuf:"bytes,1,opt,name=platform,proto3" json:"platform,omitempty"`
@@ -423,7 +379,7 @@ type SocialMedia struct {
 
 func (x *SocialMedia) Reset() {
 	*x = SocialMedia{}
-	mi := &file_common_business_proto_msgTypes[4]
+	mi := &file_common_business_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -435,7 +391,7 @@ func (x *SocialMedia) String() string {
 func (*SocialMedia) ProtoMessage() {}
 
 func (x *SocialMedia) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[4]
+	mi := &file_common_business_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -448,7 +404,7 @@ func (x *SocialMedia) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SocialMedia.ProtoReflect.Descriptor instead.
 func (*SocialMedia) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{4}
+	return file_common_business_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SocialMedia) GetPlatform() string {
@@ -476,7 +432,7 @@ type CreateUserRequest struct {
 
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
-	mi := &file_common_business_proto_msgTypes[5]
+	mi := &file_common_business_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -488,7 +444,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[5]
+	mi := &file_common_business_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -501,7 +457,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{5}
+	return file_common_business_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateUserRequest) GetName() string {
@@ -535,7 +491,7 @@ type LoginRequest struct {
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_common_business_proto_msgTypes[6]
+	mi := &file_common_business_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -547,7 +503,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[6]
+	mi := &file_common_business_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -560,7 +516,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{6}
+	return file_common_business_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *LoginRequest) GetEmail() string {
@@ -587,7 +543,7 @@ type LoginResponse struct {
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
-	mi := &file_common_business_proto_msgTypes[7]
+	mi := &file_common_business_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -599,7 +555,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[7]
+	mi := &file_common_business_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -612,7 +568,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{7}
+	return file_common_business_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *LoginResponse) GetToken() string {
@@ -639,7 +595,7 @@ type GetUserRequest struct {
 
 func (x *GetUserRequest) Reset() {
 	*x = GetUserRequest{}
-	mi := &file_common_business_proto_msgTypes[8]
+	mi := &file_common_business_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -651,7 +607,7 @@ func (x *GetUserRequest) String() string {
 func (*GetUserRequest) ProtoMessage() {}
 
 func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[8]
+	mi := &file_common_business_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -664,7 +620,7 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
 func (*GetUserRequest) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{8}
+	return file_common_business_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetUserRequest) GetUuid() string {
@@ -685,7 +641,7 @@ type UpdateUserRequest struct {
 
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
-	mi := &file_common_business_proto_msgTypes[9]
+	mi := &file_common_business_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -697,7 +653,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[9]
+	mi := &file_common_business_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -710,7 +666,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{9}
+	return file_common_business_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateUserRequest) GetUuid() string {
@@ -743,7 +699,7 @@ type DeleteUserRequest struct {
 
 func (x *DeleteUserRequest) Reset() {
 	*x = DeleteUserRequest{}
-	mi := &file_common_business_proto_msgTypes[10]
+	mi := &file_common_business_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -755,7 +711,7 @@ func (x *DeleteUserRequest) String() string {
 func (*DeleteUserRequest) ProtoMessage() {}
 
 func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[10]
+	mi := &file_common_business_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -768,7 +724,7 @@ func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{10}
+	return file_common_business_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteUserRequest) GetUuid() string {
@@ -788,7 +744,7 @@ type GeneralResponse struct {
 
 func (x *GeneralResponse) Reset() {
 	*x = GeneralResponse{}
-	mi := &file_common_business_proto_msgTypes[11]
+	mi := &file_common_business_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -800,7 +756,7 @@ func (x *GeneralResponse) String() string {
 func (*GeneralResponse) ProtoMessage() {}
 
 func (x *GeneralResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_common_business_proto_msgTypes[11]
+	mi := &file_common_business_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -813,7 +769,7 @@ func (x *GeneralResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GeneralResponse.ProtoReflect.Descriptor instead.
 func (*GeneralResponse) Descriptor() ([]byte, []int) {
-	return file_common_business_proto_rawDescGZIP(), []int{11}
+	return file_common_business_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GeneralResponse) GetSuccess() bool {
@@ -830,26 +786,80 @@ func (x *GeneralResponse) GetMessage() string {
 	return ""
 }
 
-type EmptyRequest struct {
+type GetUsersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *EmptyRequest) Reset() {
-	*x = EmptyRequest{}
+func (x *GetUsersRequest) Reset() {
+	*x = GetUsersRequest{}
+	mi := &file_common_business_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUsersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUsersRequest) ProtoMessage() {}
+
+func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_common_business_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUsersRequest.ProtoReflect.Descriptor instead.
+func (*GetUsersRequest) Descriptor() ([]byte, []int) {
+	return file_common_business_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetUsersRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *GetUsersRequest) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type GetUsersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Users         []*User                `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	Total         int32                  `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUsersResponse) Reset() {
+	*x = GetUsersResponse{}
 	mi := &file_common_business_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *EmptyRequest) String() string {
+func (x *GetUsersResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*EmptyRequest) ProtoMessage() {}
+func (*GetUsersResponse) ProtoMessage() {}
 
-func (x *EmptyRequest) ProtoReflect() protoreflect.Message {
+func (x *GetUsersResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_common_business_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -861,9 +871,23 @@ func (x *EmptyRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use EmptyRequest.ProtoReflect.Descriptor instead.
-func (*EmptyRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetUsersResponse.ProtoReflect.Descriptor instead.
+func (*GetUsersResponse) Descriptor() ([]byte, []int) {
 	return file_common_business_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetUsersResponse) GetUsers() []*User {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+func (x *GetUsersResponse) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
 }
 
 var File_common_business_proto protoreflect.FileDescriptor
@@ -902,9 +926,7 @@ const file_common_business_proto_rawDesc = "" +
 	"\tuser_uuid\x18\x02 \x01(\tR\buserUuid\x12$\n" +
 	"\x04role\x18\x03 \x01(\x0e2\x10.common.UserRoleR\x04role\x12\x12\n" +
 	"\x04name\x18\x04 \x01(\tR\x04name\x12\x14\n" +
-	"\x05email\x18\x05 \x01(\tR\x05email\".\n" +
-	"\bUserList\x12\"\n" +
-	"\x05users\x18\x01 \x03(\v2\f.common.UserR\x05users\";\n" +
+	"\x05email\x18\x05 \x01(\tR\x05email\";\n" +
 	"\vSocialMedia\x12\x1a\n" +
 	"\bplatform\x18\x01 \x01(\tR\bplatform\x12\x10\n" +
 	"\x03url\x18\x02 \x01(\tR\x03url\"Y\n" +
@@ -928,8 +950,13 @@ const file_common_business_proto_rawDesc = "" +
 	"\x04uuid\x18\x01 \x01(\tR\x04uuid\"E\n" +
 	"\x0fGeneralResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"\x0e\n" +
-	"\fEmptyRequest*M\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"?\n" +
+	"\x0fGetUsersRequest\x12\x14\n" +
+	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset\"L\n" +
+	"\x10GetUsersResponse\x12\"\n" +
+	"\x05users\x18\x01 \x03(\v2\f.common.UserR\x05users\x12\x14\n" +
+	"\x05total\x18\x02 \x01(\x05R\x05total*M\n" +
 	"\bUserRole\x12\v\n" +
 	"\aUNKNOWN\x10\x00\x12\x10\n" +
 	"\fUNAUTHORIZED\x10\x01\x12\f\n" +
@@ -956,16 +983,16 @@ var file_common_business_proto_goTypes = []any{
 	(*User)(nil),                  // 1: common.User
 	(*Business)(nil),              // 2: common.Business
 	(*BusinessUser)(nil),          // 3: common.BusinessUser
-	(*UserList)(nil),              // 4: common.UserList
-	(*SocialMedia)(nil),           // 5: common.SocialMedia
-	(*CreateUserRequest)(nil),     // 6: common.CreateUserRequest
-	(*LoginRequest)(nil),          // 7: common.LoginRequest
-	(*LoginResponse)(nil),         // 8: common.LoginResponse
-	(*GetUserRequest)(nil),        // 9: common.GetUserRequest
-	(*UpdateUserRequest)(nil),     // 10: common.UpdateUserRequest
-	(*DeleteUserRequest)(nil),     // 11: common.DeleteUserRequest
-	(*GeneralResponse)(nil),       // 12: common.GeneralResponse
-	(*EmptyRequest)(nil),          // 13: common.EmptyRequest
+	(*SocialMedia)(nil),           // 4: common.SocialMedia
+	(*CreateUserRequest)(nil),     // 5: common.CreateUserRequest
+	(*LoginRequest)(nil),          // 6: common.LoginRequest
+	(*LoginResponse)(nil),         // 7: common.LoginResponse
+	(*GetUserRequest)(nil),        // 8: common.GetUserRequest
+	(*UpdateUserRequest)(nil),     // 9: common.UpdateUserRequest
+	(*DeleteUserRequest)(nil),     // 10: common.DeleteUserRequest
+	(*GeneralResponse)(nil),       // 11: common.GeneralResponse
+	(*GetUsersRequest)(nil),       // 12: common.GetUsersRequest
+	(*GetUsersResponse)(nil),      // 13: common.GetUsersResponse
 	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
 }
 var file_common_business_proto_depIdxs = []int32{
@@ -974,13 +1001,13 @@ var file_common_business_proto_depIdxs = []int32{
 	14, // 2: common.User.updated_at:type_name -> google.protobuf.Timestamp
 	14, // 3: common.User.deleted_at:type_name -> google.protobuf.Timestamp
 	3,  // 4: common.Business.employees:type_name -> common.BusinessUser
-	5,  // 5: common.Business.some:type_name -> common.SocialMedia
+	4,  // 5: common.Business.some:type_name -> common.SocialMedia
 	14, // 6: common.Business.created_at:type_name -> google.protobuf.Timestamp
 	14, // 7: common.Business.updated_at:type_name -> google.protobuf.Timestamp
 	14, // 8: common.Business.deleted_at:type_name -> google.protobuf.Timestamp
 	0,  // 9: common.BusinessUser.role:type_name -> common.UserRole
-	1,  // 10: common.UserList.users:type_name -> common.User
-	1,  // 11: common.LoginResponse.user:type_name -> common.User
+	1,  // 10: common.LoginResponse.user:type_name -> common.User
+	1,  // 11: common.GetUsersResponse.users:type_name -> common.User
 	12, // [12:12] is the sub-list for method output_type
 	12, // [12:12] is the sub-list for method input_type
 	12, // [12:12] is the sub-list for extension type_name

@@ -17,13 +17,14 @@ import (
 	ioutil "io/ioutil"
 	mime "mime"
 	http "net/http"
+	strconv "strconv"
 	strings "strings"
 )
 
 // BusinessCustomerAPIHTTPService is the server API for BusinessCustomerAPI service.
 type BusinessCustomerAPIHTTPService interface {
 	CreateUser(context.Context, *common.CreateUserRequest) (*common.GeneralResponse, error)
-	GetUser(context.Context, *common.EmptyRequest) (*common.UserList, error)
+	GetUsers(context.Context, *common.GetUsersRequest) (*common.GetUsersResponse, error)
 	GetUserById(context.Context, *common.GetUserRequest) (*common.User, error)
 }
 
@@ -324,8 +325,8 @@ func (h *BusinessCustomerAPIHTTPConverter) CreateUserHTTPRule(cb func(ctx contex
 	})
 }
 
-// GetUser returns BusinessCustomerAPIHTTPService interface's GetUser converted to http.HandlerFunc.
-func (h *BusinessCustomerAPIHTTPConverter) GetUser(cb func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error), interceptors ...grpc.UnaryServerInterceptor) http.HandlerFunc {
+// GetUsers returns BusinessCustomerAPIHTTPService interface's GetUsers converted to http.HandlerFunc.
+func (h *BusinessCustomerAPIHTTPConverter) GetUsers(cb func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error), interceptors ...grpc.UnaryServerInterceptor) http.HandlerFunc {
 	if cb == nil {
 		cb = func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error) {
 			if err != nil {
@@ -370,7 +371,7 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUser(cb func(ctx context.Context, 
 
 		w.Header().Set("Content-Type", accept)
 
-		arg := &common.EmptyRequest{}
+		arg := &common.GetUsersRequest{}
 		if r.Method != http.MethodGet {
 			body, err := ioutil.ReadAll(r.Body)
 			if err != nil {
@@ -414,11 +415,11 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUser(cb func(ctx context.Context, 
 
 		info := &grpc.UnaryServerInfo{
 			Server:     h.srv,
-			FullMethod: "/http_business.BusinessCustomerAPI/GetUser",
+			FullMethod: "/http_business.BusinessCustomerAPI/GetUsers",
 		}
 
 		handler := func(c context.Context, req interface{}) (interface{}, error) {
-			return h.srv.GetUser(c, req.(*common.EmptyRequest))
+			return h.srv.GetUsers(c, req.(*common.GetUsersRequest))
 		}
 
 		iret, err := chained(ctx, arg, info, handler)
@@ -427,9 +428,9 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUser(cb func(ctx context.Context, 
 			return
 		}
 
-		ret, ok := iret.(*common.UserList)
+		ret, ok := iret.(*common.GetUsersResponse)
 		if !ok {
-			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUser: interceptors have not return common.UserList"))
+			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUsers: interceptors have not return common.GetUsersResponse"))
 			return
 		}
 
@@ -464,13 +465,13 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUser(cb func(ctx context.Context, 
 	})
 }
 
-// GetUserWithName returns Service name, Method name and BusinessCustomerAPIHTTPService interface's GetUser converted to http.HandlerFunc.
-func (h *BusinessCustomerAPIHTTPConverter) GetUserWithName(cb func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error), interceptors ...grpc.UnaryServerInterceptor) (string, string, http.HandlerFunc) {
-	return "BusinessCustomerAPI", "GetUser", h.GetUser(cb, interceptors...)
+// GetUsersWithName returns Service name, Method name and BusinessCustomerAPIHTTPService interface's GetUsers converted to http.HandlerFunc.
+func (h *BusinessCustomerAPIHTTPConverter) GetUsersWithName(cb func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error), interceptors ...grpc.UnaryServerInterceptor) (string, string, http.HandlerFunc) {
+	return "BusinessCustomerAPI", "GetUsers", h.GetUsers(cb, interceptors...)
 }
 
-// GetUserHTTPRule returns HTTP method, path and BusinessCustomerAPIHTTPService interface's GetUser converted to http.HandlerFunc.
-func (h *BusinessCustomerAPIHTTPConverter) GetUserHTTPRule(cb func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error), interceptors ...grpc.UnaryServerInterceptor) (string, string, http.HandlerFunc) {
+// GetUsersHTTPRule returns HTTP method, path and BusinessCustomerAPIHTTPService interface's GetUsers converted to http.HandlerFunc.
+func (h *BusinessCustomerAPIHTTPConverter) GetUsersHTTPRule(cb func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error), interceptors ...grpc.UnaryServerInterceptor) (string, string, http.HandlerFunc) {
 	if cb == nil {
 		cb = func(ctx context.Context, w http.ResponseWriter, r *http.Request, arg, ret proto.Message, err error) {
 			if err != nil {
@@ -498,7 +499,7 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUserHTTPRule(cb func(ctx context.C
 			}
 		}
 	}
-	return http.MethodGet, "/api/v1/users/getUser", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return http.MethodGet, "/api/v1/users/getUsers", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
 		contentType, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
@@ -515,8 +516,24 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUserHTTPRule(cb func(ctx context.C
 
 		w.Header().Set("Content-Type", accept)
 
-		arg := &common.EmptyRequest{}
+		arg := &common.GetUsersRequest{}
 		if r.Method == http.MethodGet {
+			if v := r.URL.Query().Get("limit"); v != "" {
+				c, err := strconv.ParseInt(v, 10, 32)
+				if err != nil {
+					cb(ctx, w, r, nil, nil, err)
+					return
+				}
+				arg.Limit = int32(c)
+			}
+			if v := r.URL.Query().Get("offset"); v != "" {
+				c, err := strconv.ParseInt(v, 10, 32)
+				if err != nil {
+					cb(ctx, w, r, nil, nil, err)
+					return
+				}
+				arg.Offset = int32(c)
+			}
 		}
 
 		n := len(interceptors)
@@ -536,11 +553,11 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUserHTTPRule(cb func(ctx context.C
 
 		info := &grpc.UnaryServerInfo{
 			Server:     h.srv,
-			FullMethod: "/http_business.BusinessCustomerAPI/GetUser",
+			FullMethod: "/http_business.BusinessCustomerAPI/GetUsers",
 		}
 
 		handler := func(c context.Context, req interface{}) (interface{}, error) {
-			return h.srv.GetUser(c, req.(*common.EmptyRequest))
+			return h.srv.GetUsers(c, req.(*common.GetUsersRequest))
 		}
 
 		iret, err := chained(ctx, arg, info, handler)
@@ -549,9 +566,9 @@ func (h *BusinessCustomerAPIHTTPConverter) GetUserHTTPRule(cb func(ctx context.C
 			return
 		}
 
-		ret, ok := iret.(*common.UserList)
+		ret, ok := iret.(*common.GetUsersResponse)
 		if !ok {
-			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUser: interceptors have not return common.UserList"))
+			cb(ctx, w, r, arg, nil, fmt.Errorf("/http_business.BusinessCustomerAPI/GetUsers: interceptors have not return common.GetUsersResponse"))
 			return
 		}
 
