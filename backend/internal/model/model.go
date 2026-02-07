@@ -23,15 +23,23 @@ func ConvertUserListToPB(users []*User) []*pb.User {
 	result := make([]*pb.User, 0, len(users))
 
 	for _, u := range users {
-		result = append(result, &pb.User{
-			Uuid:  u.UUID.String(),
-			Name:  u.Name,
-			Email: u.Email,
-			Role:  convertRoleToPB(u.Role),
-		})
+		result = append(result, convertUserToPB(u))
 	}
 
 	return result
+}
+
+func ConvertUserToPB(user *User) *pb.User {
+	return convertUserToPB(user)
+}
+
+func convertUserToPB(user *User) *pb.User {
+	return &pb.User{
+		Uuid:  user.UUID.String(),
+		Name:  user.Name,
+		Email: user.Email,
+		Role:  convertRoleToPB(user.Role),
+	}
 }
 
 func convertRoleToPB(role string) pb.UserRole {

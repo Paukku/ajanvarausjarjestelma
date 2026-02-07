@@ -83,3 +83,15 @@ func (r *PostgresUserRepository) GetUsers(limit, offset int32) ([]*model.User, e
 
 	return users, nil
 }
+
+func (r *PostgresUserRepository) GetUserById(uuid string) (*model.User, error) {
+	user := &model.User{}
+	err := r.db.QueryRow(
+		"SELECT uuid, name, email, role, created_at, updated_at FROM users WHERE uuid=$1",
+		uuid,
+	).Scan(&user.UUID, &user.Name, &user.Email, &user.Role, &user.CreatedAt, &user.UpdatedAt)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}

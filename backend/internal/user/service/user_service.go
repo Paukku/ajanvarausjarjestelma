@@ -67,5 +67,10 @@ func (s *UserServiceServer) GetUsers(ctx context.Context, limit, offset int32) (
 }
 
 func (s *UserServiceServer) GetUserById(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {
-	return &pb.User{Uuid: "1", Name: "Test User"}, nil
+	user, err := s.Repo.GetUserById(req.GetUuid())
+	if err != nil {
+		return nil, err
+	}
+
+	return model.ConvertUserToPB(user), nil
 }
