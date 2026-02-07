@@ -38,8 +38,6 @@ func Run() {
 	userHandler := handler.NewUserHandler(userService)
 
 	converter := pbHTTP.NewBusinessCustomerAPIHTTPConverter(userHandler)
-
-	//TARKISTA
 	converterAudit := pbCommon.NewAuditServiceHTTPConverter(nil)
 	mux := http.NewServeMux()
 	RegisterRoutes(mux, converter, converterAudit)

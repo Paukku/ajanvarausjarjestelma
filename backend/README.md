@@ -85,6 +85,7 @@ Tämä rakenne parantaa:
 ## Audit-logitus
 
 Audit-logitus on toteutettu erillisenä servicenä (`audit.Service`).
+Audit routet rekisteröinti tapahtuu for -loopissa, koska ajatellaan tämän tulevaisuudessa laajenevan.
 
 ### Periaatteet
 

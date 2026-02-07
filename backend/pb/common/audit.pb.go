@@ -7,6 +7,7 @@
 package common
 
 import (
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -221,7 +222,7 @@ var File_common_audit_proto protoreflect.FileDescriptor
 
 const file_common_audit_proto_rawDesc = "" +
 	"\n" +
-	"\x12common/audit.proto\x12\baudit.v1\"\xdf\x01\n" +
+	"\x12common/audit.proto\x12\baudit.v1\x1a\x1cgoogle/api/annotations.proto\"\xdf\x01\n" +
 	"\bAuditLog\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
 	"\x06action\x18\x02 \x01(\tR\x06action\x12\x16\n" +
@@ -238,9 +239,9 @@ const file_common_audit_proto_rawDesc = "" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
 	"\x06offset\x18\x02 \x01(\x05R\x06offset\">\n" +
 	"\x14GetAuditLogsResponse\x12&\n" +
-	"\x04logs\x18\x01 \x03(\v2\x12.audit.v1.AuditLogR\x04logs2]\n" +
-	"\fAuditService\x12M\n" +
-	"\fGetAuditLogs\x12\x1d.audit.v1.GetAuditLogsRequest\x1a\x1e.audit.v1.GetAuditLogsResponseBGZEgithub.com/Paukku/ajanvarausjarjestelma/backend/internal/audit/commonb\x06proto3"
+	"\x04logs\x18\x01 \x03(\v2\x12.audit.v1.AuditLogR\x04logs2y\n" +
+	"\fAuditService\x12i\n" +
+	"\fGetAuditLogs\x12\x1d.audit.v1.GetAuditLogsRequest\x1a\x1e.audit.v1.GetAuditLogsResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/api/v1/audit/logsBGZEgithub.com/Paukku/ajanvarausjarjestelma/backend/internal/audit/commonb\x06proto3"
 
 var (
 	file_common_audit_proto_rawDescOnce sync.Once

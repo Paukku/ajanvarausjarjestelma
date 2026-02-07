@@ -3,6 +3,7 @@ syntax = "proto3";
 package audit.v1;
 
 option go_package = "github.com/Paukku/ajanvarausjarjestelma/backend/internal/audit/common";
+import "google/api/annotations.proto";
 
 message AuditLog {
   string id = 1;
@@ -25,5 +26,11 @@ message GetAuditLogsResponse {
 }
 
 service AuditService {
-  rpc GetAuditLogs(GetAuditLogsRequest) returns (GetAuditLogsResponse);
+  rpc GetAuditLogs(GetAuditLogsRequest)
+      returns (GetAuditLogsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/audit/logs"
+    };
+  }
 }
+
